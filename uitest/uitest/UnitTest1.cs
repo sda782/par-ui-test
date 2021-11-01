@@ -23,12 +23,25 @@ namespace uitest
         [TestMethod]
         public void TestMethod1()
         {
-            string url = "https://sda782.github.io/par-web/";
+            string url = "https://sda782.github.io/par-web";
             driver.Navigate().GoToUrl(url);
             Assert.AreEqual(driver.Title, "Document");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // decorator pattern?
             IWebElement record_table = wait.Until(d => d.FindElement(By.Id("record_table")));
             Assert.IsTrue(record_table.Text.Contains("shit label"));
+
+        }
+        [TestMethod]
+        public void TestMethod2()
+        {
+            string filter_name = "record 1";
+            string url = "https://sda782.github.io/par-web?name=" + filter_name;
+            driver.Navigate().GoToUrl(url);
+            Assert.AreEqual(driver.Title, "Document");
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // decorator pattern?
+            IWebElement record_table = wait.Until(d => d.FindElement(By.Id("record_table")));
+            Assert.IsTrue(record_table.Text.Contains(filter_name));
+
         }
         [ClassCleanup]
         public static void clean_up()
