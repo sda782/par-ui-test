@@ -29,11 +29,16 @@ namespace uitest
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10)); // decorator pattern?
             IWebElement record_table = wait.Until(d => d.FindElement(By.Id("record_table")));
             Assert.IsTrue(record_table.Text.Contains("shit label"));
+            Console.WriteLine(record_table.Text);
 
             //filter
             IWebElement search = driver.FindElement(By.Id("searchinput")); //input field
             search.SendKeys("record 2"); //search word
             IWebElement searchbutton = driver.FindElement(By.Id("searchbutton")); //button
+
+            WebDriverWait wait2 = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            record_table = wait2.Until(d => d.FindElement(By.Id("record_table")));
+            Console.WriteLine(record_table.Text);
             Assert.IsTrue(record_table.Text.Contains("record 2"));
             Assert.IsFalse(record_table.Text.Contains("record 1"));
         }
